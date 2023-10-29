@@ -10,7 +10,7 @@
   }
 
   section {
-    @apply w-full py-16
+    @apply w-full py-32
   }
 
   div[data-row] {
@@ -23,6 +23,10 @@
 
   .space-top {
     @apply mt-4 lg:mt-8
+  }
+
+  .stack-center {
+    @apply flex flex-col justify-center
   }
 
   /* Text */

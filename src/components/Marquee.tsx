@@ -8,14 +8,15 @@ interface ParallaxProps {
   children: React.ReactNode;
   baseVelocity: number;
   className?: string;
-  array?: number;
+  repeat?: number; // multiples of 4
 }
 
-const Marquee = ({ children, baseVelocity = 100, className, array }: ParallaxProps) => {
+const Marquee = ({ children, baseVelocity = 100, className, repeat = 1 }: ParallaxProps) => {
     const baseX = useMotionValue(0);
     const { scrollY } = useScroll();
     const scrollVelocity = useVelocity(scrollY);
     const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+    const multiplier = repeat * 4;
 
     const smoothVelocity = useSpring(scrollVelocity, {
       damping: 50,
@@ -44,7 +45,7 @@ const Marquee = ({ children, baseVelocity = 100, className, array }: ParallaxPro
     return (
       <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
         <motion.div className={`flex whitespace-nowrap flex-nowrap ${className}`} style={{ x }}>
-            {Array(array || 4).fill(null).map((_, index) => (
+            {Array(multiplier || 4).fill(null).map((_, index) => (
                 <span key={index} className="block mr-8">
                     {children}
                 </span>
